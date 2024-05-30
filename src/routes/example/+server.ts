@@ -16,12 +16,18 @@ const typeDefs = `
     }
 `;
 
-const ogm = new OGM({ typeDefs, driver });
-await ogm.init(); // error occurs on this invocation
-
 export const GET: RequestHandler = async (request) => {
-    const res = await ogm.model("User").find();
-    console.log(res)
+    let res: any[];
+
+    try {
+        const ogm = new OGM({ typeDefs, driver });
+        await ogm.init(); // error occurs on this invocation
+        res = await ogm.model("User").find();
+    } catch (error) {
+        console.error(error);
+        return new Response(error as string);
+    }
+
     return new Response(JSON.stringify(res));
 }
 
