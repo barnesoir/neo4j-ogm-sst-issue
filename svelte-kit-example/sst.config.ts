@@ -9,6 +9,12 @@ export default $config({
     };
   },
   async run() {
+
+    const asd = new sst.aws.Queue({
+
+    });
+
+
     new sst.aws.SvelteKit("MyWeb");
   },
 });

@@ -15,6 +15,15 @@ export default $config({
   },
   async run() {
     const api = new sst.aws.ApiGatewayV2("ExampleNeo4jApi");
-    api.route("GET /", "lambda.handler");
+    api.route("GET /", {
+      // handler: "lambda.handler"
+      handler: "src/lambda.handler",
+      nodejs: {
+        install: ["@neo4j/graphql-ogm"],
+        esbuild: {
+          external: ["@neo4j/graphql-ogm"]
+        }
+      },
+    });
   },
 });
